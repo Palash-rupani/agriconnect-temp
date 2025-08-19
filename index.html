@@ -4,330 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AgriConnect - Empowering Farmers</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-green: #4A5C40;
-            --muted-green: #6C825D;
-            --light-green: #8FA685;
-            --warm-bg: #FDFBF8;
-            --card-bg: #FFFFFF;
-            --border-color: #E9E5E0;
-            --text-dark: #333D2E;
-            --text-muted: #596455;
-            --sidebar-bg: #F4F1ED;
-        }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--warm-bg);
-            margin: 0;
-        }
-
-        /* Simplified sidebar styling */
-        .sidebar {
-            width: 280px;
-            background-color: var(--sidebar-bg);
-            transition: all 0.3s ease;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .sidebar.collapsed {
-            width: 80px;
-        }
-
-        .sidebar.collapsed .nav-text {
-            display: none;
-        }
-
-        .sidebar.collapsed .sidebar-title {
-            display: none;
-        }
-
-        .sidebar.collapsed .nav-link {
-            justify-content: center;
-        }
-
-        .sidebar.collapsed .card {
-            display: none;
-        }
-
-        .sidebar-toggle {
-            position: absolute;
-            top: 20px;
-            right: -15px;
-            width: 30px;
-            height: 30px;
-            background: var(--primary-green);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease;
-        }
-
-        .sidebar-toggle:hover {
-            transform: scale(1.05);
-        }
-
-        /* Cleaner navigation links */
-        .nav-link {
-            transition: all 0.2s ease;
-            border-radius: 8px;
-            margin: 2px 0;
-        }
-
-        .nav-link.active {
-            background-color: var(--primary-green);
-            color: #FFFFFF;
-            font-weight: 600;
-        }
-
-        .nav-link:not(.active):hover {
-            background-color: var(--border-color);
-        }
-
-        /* Simplified card styling */
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            transition: box-shadow 0.2s ease;
-        }
-
-        .card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Cleaner button styling */
-        .btn-primary {
-            background-color: var(--muted-green);
-            color: #FFFFFF;
-            transition: background-color 0.2s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-green);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        /* Fixed chart container sizing */
-        .chart-container {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            padding: 16px;
-        }
-
-        .chart-container canvas {
-            max-height: 100% !important;
-        }
-
-        /* Notification system */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--primary-green);
-            color: white;
-            padding: 16px 24px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-            max-width: 300px;
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
-
-        /* Cart counter */
-        .cart-counter {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #EF4444;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        /* Loading spinner */
-        .loading-spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                left: -280px;
-                top: 0;
-                height: 100vh;
-                z-index: 1000;
-            }
-
-            .sidebar.mobile-open {
-                left: 0;
-            }
-
-            .mobile-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 999;
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s ease;
-            }
-
-            .mobile-overlay.show {
-                opacity: 1;
-                visibility: visible;
-            }
-
-            .mobile-menu-btn {
-                position: fixed;
-                top: 20px;
-                left: 20px;
-                z-index: 1001;
-                background: var(--primary-green);
-                color: white;
-                border: none;
-                padding: 12px;
-                border-radius: 8px;
-                cursor: pointer;
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 80px 16px 16px;
-            }
-        }
-
-        @media (min-width: 769px) {
-            .main-content {
-                margin-left: 280px;
-                transition: margin-left 0.3s ease;
-            }
-
-            .main-content.sidebar-collapsed {
-                margin-left: 80px;
-            }
-
-            .mobile-menu-btn {
-                display: none;
-            }
-        }
-
-        .section-title {
-            color: var(--text-dark);
-        }
-
-        .section-intro {
-            color: var(--text-muted);
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="flex h-screen">
-    <!-- Mobile overlay and menu button -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
     <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
 
-    <!-- Notification container -->
     <div class="notification" id="notification">
         <div id="notificationText"></div>
     </div>
 
-    <!-- Sidebar Navigation -->
     <aside class="sidebar flex flex-col shrink-0" id="sidebar">
         <button class="sidebar-toggle" id="sidebarToggle">←</button>
-        
         <div class="flex items-center mb-8 p-4">
             <span class="text-2xl font-bold text-[#4A5C40] sidebar-title">AgriConnect</span>
         </div>
-
         <nav class="flex flex-col space-y-2 px-4 flex-1">
             <a href="#dashboard" class="nav-link active px-4 py-3 rounded-lg flex items-center space-x-3">
-                <span>📊</span>
-                <span class="nav-text">Dashboard</span>
+                <span>📊</span><span class="nav-text">Dashboard</span>
             </a>
             <a href="#crop-intel" class="nav-link px-4 py-3 rounded-lg flex items-center space-x-3">
-                <span>🌱</span>
-                <span class="nav-text">Crop Intel</span>
+                <span>🌱</span><span class="nav-text">Crop Intel</span>
             </a>
             <a href="#weather-hub" class="nav-link px-4 py-3 rounded-lg flex items-center space-x-3">
-                <span>☀️</span>
-                <span class="nav-text">Weather Hub</span>
+                <span>☀️</span><span class="nav-text">Weather Hub</span>
             </a>
             <a href="#marketplace" class="nav-link px-4 py-3 rounded-lg flex items-center space-x-3 relative">
-                <span>🛒</span>
-                <span class="nav-text">Marketplace</span>
+                <span>🛒</span><span class="nav-text">Marketplace</span>
                 <span class="cart-counter" id="cartCounter">0</span>
             </a>
             <a href="#forum" class="nav-link px-4 py-3 rounded-lg flex items-center space-x-3">
-                <span>💬</span>
-                <span class="nav-text">Community Forum</span>
+                <span>💬</span><span class="nav-text">Community Forum</span>
             </a>
             <a href="#tech-stack" class="nav-link px-4 py-3 rounded-lg flex items-center space-x-3">
-                <span>⚙️</span>
-                <span class="nav-text">Tech Stack</span>
+                <span>⚙️</span><span class="nav-text">Tech Stack</span>
             </a>
         </nav>
-
         <div class="mt-auto card p-4 text-center mx-4 mb-4">
             <p class="text-sm section-intro">Empowering agriculture through technology.</p>
         </div>
     </aside>
 
-    <!-- Main Content Area -->
     <main class="main-content p-6 lg:p-8 overflow-y-auto min-h-screen" id="mainContent">
-        
-        <!-- Dashboard Section -->
         <section id="dashboard" class="content-section">
             <h1 class="text-3xl font-bold section-title mb-2">Farmer's Dashboard</h1>
             <p class="text-lg section-intro mb-8">Welcome back! Here's a quick overview of your farm's status and platform activity.</p>
-            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="card p-6">
                     <h3 class="font-semibold text-lg section-title mb-2">Weather Alert</h3>
@@ -349,18 +78,15 @@
                     </button>
                 </div>
             </div>
-
             <div class="mt-8 card p-6">
                 <h2 class="text-2xl font-bold section-title mb-4">Platform Overview</h2>
-                <p class="section-intro mb-6">AgriConnect is a comprehensive digital platform designed to empower farmers. It provides data-driven crop recommendations, real-time weather forecasts, direct access to markets, and a community support system.</p>
+                <p class="section-intro mb-6">AgriConnect is a comprehensive digital platform...</p>
             </div>
         </section>
-
-        <!-- Crop Intel Section -->
+        
         <section id="crop-intel" class="content-section hidden">
             <h1 class="text-3xl font-bold section-title mb-2">Intelligent Crop Planning</h1>
             <p class="text-lg section-intro mb-8">Get personalized crop recommendations based on your local conditions.</p>
-            
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-1 card p-6">
                     <h3 class="font-semibold text-lg section-title mb-4">Select Your Conditions</h3>
@@ -393,12 +119,10 @@
                 </div>
             </div>
         </section>
-
-        <!-- Weather Hub Section -->
+        
         <section id="weather-hub" class="content-section hidden">
             <h1 class="text-3xl font-bold section-title mb-2">Real-time Weather Hub</h1>
             <p class="text-lg section-intro mb-8">Access localized, real-time weather data and agricultural advisories.</p>
-            
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                 <div class="card p-4 text-center">
                     <h4 class="font-semibold section-title">Soil Moisture</h4>
@@ -416,7 +140,6 @@
                     <p class="text-sm section-intro">(ET0)</p>
                 </div>
             </div>
-
             <div class="card p-6">
                 <h3 class="font-semibold text-lg section-title mb-4">7-Day Temperature Forecast (°C)</h3>
                 <p class="section-intro mb-4">This chart shows the forecasted high and low temperatures for the upcoming week.</p>
@@ -425,53 +148,43 @@
                 </div>
             </div>
         </section>
-
-        <!-- Marketplace Section -->
+        
         <section id="marketplace" class="content-section hidden">
             <h1 class="text-3xl font-bold section-title mb-2">Direct-to-Consumer Marketplace</h1>
             <p class="text-lg section-intro mb-8">Sell your produce directly to consumers at a fair price.</p>
-            
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-2">
-                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="card">
-                            <div class="h-40 bg-gray-200 rounded-t-lg" style="background-image: url('https://placehold.co/600x400/a3bf99/4A5C40?text=Tomatoes'); background-size: cover; background-position: center;"></div>
+                            <div class="h-40 bg-gray-200 rounded-t-lg" style="background-image: url('./img/Tomatoes.jpg'); background-size: cover; background-position: center;"></div>
                             <div class="p-4">
                                 <h3 class="font-bold text-lg section-title">Fresh Tomatoes</h3>
                                 <p class="section-intro text-sm">1 kg | ₹40</p>
-                                <button class="w-full btn-primary mt-3 py-2 rounded-lg text-sm add-to-cart" data-product="Tomatoes" data-price="40">
-                                    Add to Cart
-                                </button>
+                                <button class="w-full btn-primary mt-3 py-2 rounded-lg text-sm add-to-cart" data-product="Tomatoes" data-price="40"> Add to Cart </button>
                             </div>
                         </div>
                         <div class="card">
-                            <div class="h-40 bg-gray-200 rounded-t-lg" style="background-image: url('https://placehold.co/600x400/f0e2a3/4A5C40?text=Wheat'); background-size: cover; background-position: center;"></div>
+                            <div class="h-40 bg-gray-200 rounded-t-lg" style="background-image: url('./img/wheat.jpg'); background-size: cover; background-position: center;"></div>
                             <div class="p-4">
                                 <h3 class="font-bold text-lg section-title">Organic Wheat</h3>
                                 <p class="section-intro text-sm">5 kg | ₹250</p>
-                                <button class="w-full btn-primary mt-3 py-2 rounded-lg text-sm add-to-cart" data-product="Wheat" data-price="250">
-                                    Add to Cart
-                                </button>
-                            </div>
-                        </div>
-                         <div class="card">
-                            <div class="h-40 bg-gray-200 rounded-t-lg" style="background-image: url('https://placehold.co/600x400/d3e8c8/4A5C40?text=Spinach'); background-size: cover; background-position: center;"></div>
-                            <div class="p-4">
-                                <h3 class="font-bold text-lg section-title">Leafy Spinach</h3>
-                                <p class="section-intro text-sm">500 g | ₹25</p>
-                                <button class="w-full btn-primary mt-3 py-2 rounded-lg text-sm add-to-cart" data-product="Spinach" data-price="25">
-                                    Add to Cart
-                                </button>
+                                <button class="w-full btn-primary mt-3 py-2 rounded-lg text-sm add-to-cart" data-product="Wheat" data-price="250"> Add to Cart </button>
                             </div>
                         </div>
                         <div class="card">
-                            <div class="h-40 bg-gray-200 rounded-t-lg" style="background-image: url('https://placehold.co/600x400/f5d68f/4A5C40?text=Potatoes'); background-size: cover; background-position: center;"></div>
+                            <div class="h-40 bg-gray-200 rounded-t-lg" style="background-image: url('./img/spinach.jpg'); background-size: cover; background-position: center;"></div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg section-title">Leafy Spinach</h3>
+                                <p class="section-intro text-sm">500 g | ₹25</p>
+                                <button class="w-full btn-primary mt-3 py-2 rounded-lg text-sm add-to-cart" data-product="Spinach" data-price="25"> Add to Cart </button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="h-40 bg-gray-200 rounded-t-lg" style="background-image: url('./img/potatoes.jpg'); background-size: cover; background-position: center;"></div>
                             <div class="p-4">
                                 <h3 class="font-bold text-lg section-title">Himalayan Potatoes</h3>
                                 <p class="section-intro text-sm">1 kg | ₹35</p>
-                                <button class="w-full btn-primary mt-3 py-2 rounded-lg text-sm add-to-cart" data-product="Potatoes" data-price="35">
-                                    Add to Cart
-                                </button>
+                                <button class="w-full btn-primary mt-3 py-2 rounded-lg text-sm add-to-cart" data-product="Potatoes" data-price="35"> Add to Cart </button>
                             </div>
                         </div>
                     </div>
@@ -485,21 +198,19 @@
                 </div>
             </div>
         </section>
-
-        <!-- Community Forum Section -->
+        
         <section id="forum" class="content-section hidden">
             <h1 class="text-3xl font-bold section-title mb-2">Community Q&A Forum</h1>
             <p class="text-lg section-intro mb-8">Connect with fellow farmers and agricultural experts.</p>
-
             <div class="space-y-6">
                 <div class="card p-6">
                     <p class="font-semibold section-title">How can I control for aphids on my tomato plants organically?</p>
                     <p class="text-sm section-intro mt-1">Asked by Ramesh K. - 2 hours ago</p>
                     <div class="mt-4 flex items-center justify-between">
                         <div class="flex items-center space-x-4">
-                           <button class="flex items-center space-x-1 text-green-600"><span>▲</span><span>12</span></button>
-                           <button class="flex items-center space-x-1 text-gray-500"><span>▼</span><span>1</span></button>
-                           <span class="text-sm section-intro">3 Answers</span>
+                            <button class="flex items-center space-x-1 text-green-600"><span>▲</span><span>12</span></button>
+                            <button class="flex items-center space-x-1 text-gray-500"><span>▼</span><span>1</span></button>
+                            <span class="text-sm section-intro">3 Answers</span>
                         </div>
                         <button class="btn-primary px-4 py-2 rounded-lg text-sm">Answer</button>
                     </div>
@@ -509,21 +220,19 @@
                     <p class="text-sm section-intro mt-1">Asked by Sunita P. - 1 day ago</p>
                     <div class="mt-4 flex items-center justify-between">
                         <div class="flex items-center space-x-4">
-                           <button class="flex items-center space-x-1 text-green-600"><span>▲</span><span>8</span></button>
-                           <button class="flex items-center space-x-1 text-gray-500"><span>▼</span><span>0</span></button>
-                           <span class="text-sm section-intro">5 Answers</span>
+                            <button class="flex items-center space-x-1 text-green-600"><span>▲</span><span>8</span></button>
+                            <button class="flex items-center space-x-1 text-gray-500"><span>▼</span><span>0</span></button>
+                            <span class="text-sm section-intro">5 Answers</span>
                         </div>
-                         <button class="btn-primary px-4 py-2 rounded-lg text-sm">Answer</button>
+                        <button class="btn-primary px-4 py-2 rounded-lg text-sm">Answer</button>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Tech Stack Section -->
+        
         <section id="tech-stack" class="content-section hidden">
             <h1 class="text-3xl font-bold section-title mb-2">Architectural Foundation</h1>
             <p class="text-lg section-intro mb-8">AgriConnect is built on the robust and scalable MEAN stack.</p>
-
             <div class="card p-8">
                 <div class="relative">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
@@ -551,288 +260,8 @@
                 </div>
             </div>
         </section>
-
     </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const navLinks = document.querySelectorAll('.nav-link');
-            const contentSections = document.querySelectorAll('.content-section');
-            const sidebar = document.getElementById('sidebar');
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            const mainContent = document.getElementById('mainContent');
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileOverlay = document.getElementById('mobileOverlay');
-            const notification = document.getElementById('notification');
-            const cartCounter = document.getElementById('cartCounter');
-            
-            let cartCount = 0;
-            let sidebarCollapsed = false;
-
-            function showSection(hash) {
-                contentSections.forEach(section => {
-                    if ('#' + section.id === hash) {
-                        section.classList.remove('hidden');
-                    } else {
-                        section.classList.add('hidden');
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    if (link.getAttribute('href') === hash) {
-                        link.classList.add('active');
-                    } else {
-                        link.classList.remove('active');
-                    }
-                });
-            }
-
-            window.showNotification = function(message) {
-                const notificationText = document.getElementById('notificationText');
-                notificationText.textContent = message;
-                notification.classList.add('show');
-                
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 3000);
-            };
-
-            // Sidebar toggle
-            sidebarToggle.addEventListener('click', () => {
-                sidebarCollapsed = !sidebarCollapsed;
-                sidebar.classList.toggle('collapsed');
-                mainContent.classList.toggle('sidebar-collapsed');
-                sidebarToggle.textContent = sidebarCollapsed ? '→' : '←';
-            });
-
-            // Mobile menu
-            mobileMenuBtn.addEventListener('click', () => {
-                sidebar.classList.add('mobile-open');
-                mobileOverlay.classList.add('show');
-            });
-
-            mobileOverlay.addEventListener('click', () => {
-                sidebar.classList.remove('mobile-open');
-                mobileOverlay.classList.remove('show');
-            });
-
-            document.addEventListener('click', (e) => {
-                if (e.target.classList.contains('add-to-cart')) {
-                    const button = e.target;
-                    const product = button.getAttribute('data-product');
-                    const price = button.getAttribute('data-price');
-                    
-                    cartCount++;
-                    cartCounter.textContent = cartCount;
-                    cartCounter.style.display = 'flex';
-                    
-                    // Add loading state
-                    const originalText = button.textContent;
-                    button.innerHTML = '<span class="loading-spinner"></span>';
-                    button.disabled = true;
-                    
-                    setTimeout(() => {
-                        button.textContent = originalText;
-                        button.disabled = false;
-                        showNotification(`${product} added to cart! ₹${price}`);
-                    }, 1000);
-                }
-            });
-
-            // Navigation event listeners
-            navLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    window.location.hash = targetId;
-                    
-                    // Close mobile menu if open
-                    if (window.innerWidth <= 768) {
-                        sidebar.classList.remove('mobile-open');
-                        mobileOverlay.classList.remove('show');
-                    }
-                });
-            });
-
-            window.addEventListener('hashchange', () => {
-                showSection(window.location.hash || '#dashboard');
-            });
-            
-            showSection(window.location.hash || '#dashboard');
-
-            Chart.defaults.font.family = "'Inter', sans-serif";
-            Chart.defaults.color = '#596455';
-
-            let cropChart, weatherChart, priceChart;
-
-            const cropData = {
-                loamy: {
-                    tropical: [85, 70, 60, 40, 75],
-                    arid: [30, 80, 75, 90, 60],
-                    temperate: [70, 50, 85, 65, 90]
-                },
-                sandy: {
-                    tropical: [60, 50, 40, 30, 55],
-                    arid: [40, 90, 80, 95, 65],
-                    temperate: [50, 40, 65, 55, 70]
-                },
-                clay: {
-                    tropical: [90, 65, 55, 35, 80],
-                    arid: [25, 70, 65, 80, 50],
-                    temperate: [65, 45, 80, 60, 85]
-                }
-            };
-
-            function renderCropChart(data) {
-                const ctx = document.getElementById('cropChart');
-                if (!ctx) return;
-                
-                if (cropChart) {
-                    cropChart.destroy();
-                }
-                
-                cropChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Rice', 'Millet', 'Cotton', 'Sugarcane', 'Wheat'],
-                        datasets: [{
-                            label: 'Suitability Score',
-                            data: data,
-                            backgroundColor: '#6C825D',
-                            borderColor: '#4A5C40',
-                            borderWidth: 1,
-                            borderRadius: 4,
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                max: 100
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                display: false
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        return `Suitability: ${context.raw}%`;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            function renderWeatherChart() {
-                const ctx = document.getElementById('weatherChart');
-                if (!ctx) return;
-                
-                if (weatherChart) {
-                    weatherChart.destroy();
-                }
-                
-                weatherChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                        datasets: [{
-                            label: 'High °C',
-                            data: [28, 30, 31, 29, 32, 33, 31],
-                            borderColor: '#D97706',
-                            backgroundColor: 'rgba(217, 119, 6, 0.1)',
-                            tension: 0.3,
-                            fill: false
-                        }, {
-                            label: 'Low °C',
-                            data: [18, 19, 20, 19, 21, 22, 20],
-                            borderColor: '#60A5FA',
-                            backgroundColor: 'rgba(96, 165, 250, 0.1)',
-                            tension: 0.3,
-                            fill: false
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: false
-                            }
-                        },
-                        plugins: {
-                            tooltip: {
-                                mode: 'index',
-                                intersect: false,
-                            }
-                        }
-                    }
-                });
-            }
-
-            function renderPriceChart() {
-                const ctx = document.getElementById('priceChart');
-                if (!ctx) return;
-                
-                if (priceChart) {
-                    priceChart.destroy();
-                }
-                
-                priceChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Tomatoes', 'Wheat', 'Potatoes'],
-                        datasets: [{
-                            label: 'Intermediary Price (₹)',
-                            data: [25, 42, 22],
-                            backgroundColor: '#FBBF24',
-                            borderRadius: 4,
-                        }, {
-                            label: 'AgriConnect Price (₹)',
-                            data: [40, 50, 35],
-                            backgroundColor: '#6C825D',
-                            borderRadius: 4,
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        },
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        return `${context.dataset.label}: ₹${context.raw}`;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
-            document.getElementById('getCropRecs').addEventListener('click', () => {
-                const soil = document.getElementById('soilType').value;
-                const climate = document.getElementById('climate').value;
-                renderCropChart(cropData[soil][climate]);
-                showNotification('Crop recommendations updated!');
-            });
-
-            setTimeout(() => {
-                renderCropChart(cropData.loamy.tropical);
-                renderWeatherChart();
-                renderPriceChart();
-            }, 100);
-        });
-    </script>
+    
+    <script src="script.js"></script>
 </body>
 </html>
