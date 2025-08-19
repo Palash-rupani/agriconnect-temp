@@ -22,24 +22,18 @@
             --sidebar-bg: #F4F1ED;
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--warm-bg) 0%, #F8F6F3 100%);
+            background-color: var(--warm-bg);
             margin: 0;
-            overflow-x: hidden;
         }
 
-        /* Enhanced sidebar with better animations and mobile responsiveness */
+        /* Simplified sidebar styling */
         .sidebar {
             width: 280px;
-            background: linear-gradient(180deg, var(--sidebar-bg) 0%, #F0EDE8 100%);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
+            background-color: var(--sidebar-bg);
+            transition: all 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
         }
 
         .sidebar.collapsed {
@@ -60,121 +54,75 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
         }
 
         .sidebar-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
         }
 
-        /* Enhanced navigation links with better hover effects */
+        /* Cleaner navigation links */
         .nav-link {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-            margin: 4px 0;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: left 0.5s;
-        }
-
-        .nav-link:hover::before {
-            left: 100%;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            margin: 2px 0;
         }
 
         .nav-link.active {
-            background: linear-gradient(135deg, var(--primary-green) 0%, var(--muted-green) 100%);
+            background-color: var(--primary-green);
             color: #FFFFFF;
             font-weight: 600;
-            transform: translateX(4px);
-            box-shadow: 0 4px 12px rgba(74, 92, 64, 0.3);
         }
 
         .nav-link:not(.active):hover {
-            background: linear-gradient(135deg, var(--border-color) 0%, #E5E1DC 100%);
-            transform: translateX(2px);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background-color: var(--border-color);
         }
 
-        /* Enhanced cards with better shadows and hover effects */
+        /* Simplified card styling */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--muted-green), var(--light-green));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.2s ease;
         }
 
         .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.1), 0 8px 16px -4px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .card:hover::before {
-            transform: scaleX(1);
-        }
-
-        /* Enhanced buttons with better animations */
+        /* Cleaner button styling */
         .btn-primary {
-            background: linear-gradient(135deg, var(--muted-green) 0%, var(--primary-green) 100%);
+            background-color: var(--muted-green);
             color: #FFFFFF;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+            transition: background-color 0.2s ease;
             border: none;
             cursor: pointer;
         }
 
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s;
-        }
-
-        .btn-primary:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(74, 92, 64, 0.3);
+            background-color: var(--primary-green);
         }
 
-        /* Added notification system */
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Fixed chart container sizing */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            padding: 16px;
+        }
+
+        .chart-container canvas {
+            max-height: 100% !important;
+        }
+
+        /* Notification system */
         .notification {
             position: fixed;
             top: 20px;
@@ -182,10 +130,10 @@
             background: var(--primary-green);
             color: white;
             padding: 16px 24px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             transform: translateX(400px);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.3s ease;
             z-index: 1000;
             max-width: 300px;
         }
@@ -194,41 +142,28 @@
             transform: translateX(0);
         }
 
-        /* Added search functionality */
-        .search-container {
-            position: relative;
-            margin-bottom: 24px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 16px 12px 48px;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            background: var(--card-bg);
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--muted-green);
-            box-shadow: 0 0 0 3px rgba(108, 130, 93, 0.1);
-        }
-
-        .search-icon {
+        /* Cart counter */
+        .cart-counter {
             position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
-
-        /* Added loading animations */
-        .loading-spinner {
-            display: inline-block;
+            top: -8px;
+            right: -8px;
+            background: #EF4444;
+            color: white;
+            border-radius: 50%;
             width: 20px;
             height: 20px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             border-top-color: white;
@@ -239,31 +174,7 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Enhanced chart containers */
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 16px;
-        }
-
-        /* Added pulse animation for metrics */
-        .metric-value {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-
-        /* Enhanced mobile responsiveness */
+        /* Mobile responsiveness */
         @media (max-width: 768px) {
             .sidebar {
                 position: fixed;
@@ -329,53 +240,6 @@
             }
         }
 
-        /* Added tooltip styles */
-        .tooltip {
-            position: relative;
-            cursor: help;
-        }
-
-        .tooltip::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--text-dark);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .tooltip:hover::after {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(-4px);
-        }
-
-        /* Added cart counter */
-        .cart-counter {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #EF4444;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
         .section-title {
             color: var(--text-dark);
         }
@@ -384,23 +248,17 @@
             color: var(--text-muted);
         }
 
-        /* Added fade-in animation for sections */
-        .content-section {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body class="flex h-screen">
-    <!-- Added mobile overlay and menu button -->
+    <!-- Mobile overlay and menu button -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
     <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
 
-    <!-- Added notification container -->
+    <!-- Notification container -->
     <div class="notification" id="notification">
         <div id="notificationText"></div>
     </div>
@@ -413,44 +271,36 @@
             <span class="text-2xl font-bold text-[#4A5C40] sidebar-title">AgriConnect</span>
         </div>
 
-        <!-- Added search functionality -->
-        <div class="search-container px-4">
-            <div class="relative">
-                <span class="search-icon">🔍</span>
-                <input type="text" class="search-input" placeholder="Search sections..." id="searchInput">
-            </div>
-        </div>
-
         <nav class="flex flex-col space-y-2 px-4 flex-1">
-            <a href="#dashboard" class="nav-link active px-4 py-3 rounded-lg flex items-center space-x-3" data-section="dashboard">
-                <span class="nav-icon">📊</span>
+            <a href="#dashboard" class="nav-link active px-4 py-3 rounded-lg flex items-center space-x-3">
+                <span>📊</span>
                 <span class="nav-text">Dashboard</span>
             </a>
-            <a href="#crop-intel" class="nav-link px-4 py-3 rounded-lg flex items-center space-x-3" data-section="crop-intel">
-                <span class="nav-icon">🌱</span>
+            <a href="#crop-intel" class="nav-link px-4 py-3 rounded-lg flex items-center space-x-3">
+                <span>🌱</span>
                 <span class="nav-text">Crop Intel</span>
             </a>
-            <a href="#weather-hub" class="nav-link px-4 py-3 rounded-lg flex items-center space-x-3" data-section="weather-hub">
-                <span class="nav-icon">☀️</span>
+            <a href="#weather-hub" class="nav-link px-4 py-3 rounded-lg flex items-center space-x-3">
+                <span>☀️</span>
                 <span class="nav-text">Weather Hub</span>
             </a>
-            <a href="#marketplace" class="nav-link px-4 py-3 rounded-lg flex items-center space-x-3 relative" data-section="marketplace">
-                <span class="nav-icon">🛒</span>
+            <a href="#marketplace" class="nav-link px-4 py-3 rounded-lg flex items-center space-x-3 relative">
+                <span>🛒</span>
                 <span class="nav-text">Marketplace</span>
                 <span class="cart-counter" id="cartCounter">0</span>
             </a>
-            <a href="#forum" class="nav-link px-4 py-3 rounded-lg flex items-center space-x-3" data-section="forum">
-                <span class="nav-icon">💬</span>
+            <a href="#forum" class="nav-link px-4 py-3 rounded-lg flex items-center space-x-3">
+                <span>💬</span>
                 <span class="nav-text">Community Forum</span>
             </a>
-            <a href="#tech-stack" class="nav-link px-4 py-3 rounded-lg flex items-center space-x-3" data-section="tech-stack">
-                <span class="nav-icon">⚙️</span>
+            <a href="#tech-stack" class="nav-link px-4 py-3 rounded-lg flex items-center space-x-3">
+                <span>⚙️</span>
                 <span class="nav-text">Tech Stack</span>
             </a>
         </nav>
 
         <div class="mt-auto card p-4 text-center mx-4 mb-4">
-            <p class="text-sm section-intro">Empowering the heart of agriculture through technology.</p>
+            <p class="text-sm section-intro">Empowering agriculture through technology.</p>
         </div>
     </aside>
 
@@ -459,41 +309,41 @@
         
         <!-- Dashboard Section -->
         <section id="dashboard" class="content-section">
-            <h1 class="text-4xl font-bold section-title mb-2">Farmer's Dashboard</h1>
+            <h1 class="text-3xl font-bold section-title mb-2">Farmer's Dashboard</h1>
             <p class="text-lg section-intro mb-8">Welcome back! Here's a quick overview of your farm's status and platform activity.</p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="card p-6">
                     <h3 class="font-semibold text-lg section-title mb-2">Weather Alert</h3>
                     <p class="section-intro">Light showers expected in 2 hours. Soil moisture is optimal.</p>
-                    <div class="mt-4 text-3xl font-bold text-[#6C825D] metric-value tooltip" data-tooltip="Current temperature">28°C</div>
+                    <div class="mt-4 text-3xl font-bold text-[#6C825D]">28°C</div>
                 </div>
                 <div class="card p-6">
                     <h3 class="font-semibold text-lg section-title mb-2">Marketplace Update</h3>
                     <p class="section-intro">You have 2 new orders for tomatoes. Market price for wheat is up 3%.</p>
                     <button class="btn-primary mt-4 px-4 py-2 rounded-lg text-sm" onclick="showNotification('Redirecting to orders...')">
-                        <span>View Orders</span>
+                        View Orders
                     </button>
                 </div>
                 <div class="card p-6">
                     <h3 class="font-semibold text-lg section-title mb-2">Community Forum</h3>
                     <p class="section-intro">Your question about pest control has 3 new answers.</p>
                     <button class="btn-primary mt-4 px-4 py-2 rounded-lg text-sm" onclick="showNotification('Opening forum answers...')">
-                        <span>Read Answers</span>
+                        Read Answers
                     </button>
                 </div>
             </div>
 
             <div class="mt-8 card p-6">
                 <h2 class="text-2xl font-bold section-title mb-4">Platform Overview</h2>
-                <p class="section-intro mb-6">AgriConnect is a comprehensive digital platform designed to empower farmers. It provides data-driven crop recommendations, real-time weather forecasts, direct access to markets, and a community support system. This interactive application demonstrates how these key features translate the vision from the source report into a tangible, user-friendly tool.</p>
+                <p class="section-intro mb-6">AgriConnect is a comprehensive digital platform designed to empower farmers. It provides data-driven crop recommendations, real-time weather forecasts, direct access to markets, and a community support system.</p>
             </div>
         </section>
 
         <!-- Crop Intel Section -->
         <section id="crop-intel" class="content-section hidden">
             <h1 class="text-3xl font-bold section-title mb-2">Intelligent Crop Planning</h1>
-            <p class="text-lg section-intro mb-8">Get personalized crop recommendations based on your local conditions. This tool analyzes soil type and climate data to suggest the most suitable crops, helping you maximize yield and profitability as outlined in the report.</p>
+            <p class="text-lg section-intro mb-8">Get personalized crop recommendations based on your local conditions.</p>
             
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-1 card p-6">
@@ -520,7 +370,7 @@
                 </div>
                 <div class="lg:col-span-2 card p-6">
                     <h3 class="font-semibold text-lg section-title mb-4">Crop Suitability Analysis</h3>
-                    <p class="section-intro mb-4">This chart compares the suitability of various crops based on your selections. Higher scores indicate a better match. Interact by changing the conditions to see how recommendations adapt in real-time.</p>
+                    <p class="section-intro mb-4">This chart compares the suitability of various crops based on your selections.</p>
                     <div class="chart-container">
                         <canvas id="cropChart"></canvas>
                     </div>
@@ -531,7 +381,7 @@
         <!-- Weather Hub Section -->
         <section id="weather-hub" class="content-section hidden">
             <h1 class="text-3xl font-bold section-title mb-2">Real-time Weather Hub</h1>
-            <p class="text-lg section-intro mb-8">Access localized, real-time weather data and agricultural advisories. This section provides critical information on temperature, precipitation, and soil conditions to help you make timely decisions for irrigation and crop protection.</p>
+            <p class="text-lg section-intro mb-8">Access localized, real-time weather data and agricultural advisories.</p>
             
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                 <div class="card p-4 text-center">
@@ -553,8 +403,8 @@
 
             <div class="card p-6">
                 <h3 class="font-semibold text-lg section-title mb-4">7-Day Temperature Forecast (°C)</h3>
-                <p class="section-intro mb-4">This chart shows the forecasted high and low temperatures for the upcoming week. Hover over any point on the lines to see the exact temperature for that day, allowing for precise planning.</p>
-                <div class="chart-container h-64 md:h-80">
+                <p class="section-intro mb-4">This chart shows the forecasted high and low temperatures for the upcoming week.</p>
+                <div class="chart-container">
                     <canvas id="weatherChart"></canvas>
                 </div>
             </div>
@@ -563,48 +413,48 @@
         <!-- Marketplace Section -->
         <section id="marketplace" class="content-section hidden">
             <h1 class="text-3xl font-bold section-title mb-2">Direct-to-Consumer Marketplace</h1>
-            <p class="text-lg section-intro mb-8">Sell your produce directly to consumers at a fair price. This marketplace cuts out intermediaries, ensuring you get the best value for your hard work. The chart below demonstrates the potential increase in earnings.</p>
+            <p class="text-lg section-intro mb-8">Sell your produce directly to consumers at a fair price.</p>
             
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-2">
                      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="card product-card">
+                        <div class="card">
                             <div class="h-40 bg-gray-200 rounded-t-lg" style="background-image: url('https://placehold.co/600x400/a3bf99/4A5C40?text=Tomatoes'); background-size: cover; background-position: center;"></div>
                             <div class="p-4">
                                 <h3 class="font-bold text-lg section-title">Fresh Tomatoes</h3>
                                 <p class="section-intro text-sm">1 kg | ₹40</p>
                                 <button class="w-full btn-primary mt-3 py-2 rounded-lg text-sm add-to-cart" data-product="Tomatoes" data-price="40">
-                                    <span>Add to Cart</span>
+                                    Add to Cart
                                 </button>
                             </div>
                         </div>
-                        <div class="card product-card">
+                        <div class="card">
                             <div class="h-40 bg-gray-200 rounded-t-lg" style="background-image: url('https://placehold.co/600x400/f0e2a3/4A5C40?text=Wheat'); background-size: cover; background-position: center;"></div>
                             <div class="p-4">
                                 <h3 class="font-bold text-lg section-title">Organic Wheat</h3>
                                 <p class="section-intro text-sm">5 kg | ₹250</p>
                                 <button class="w-full btn-primary mt-3 py-2 rounded-lg text-sm add-to-cart" data-product="Wheat" data-price="250">
-                                    <span>Add to Cart</span>
+                                    Add to Cart
                                 </button>
                             </div>
                         </div>
-                         <div class="card product-card">
+                         <div class="card">
                             <div class="h-40 bg-gray-200 rounded-t-lg" style="background-image: url('https://placehold.co/600x400/d3e8c8/4A5C40?text=Spinach'); background-size: cover; background-position: center;"></div>
                             <div class="p-4">
                                 <h3 class="font-bold text-lg section-title">Leafy Spinach</h3>
                                 <p class="section-intro text-sm">500 g | ₹25</p>
                                 <button class="w-full btn-primary mt-3 py-2 rounded-lg text-sm add-to-cart" data-product="Spinach" data-price="25">
-                                    <span>Add to Cart</span>
+                                    Add to Cart
                                 </button>
                             </div>
                         </div>
-                        <div class="card product-card">
+                        <div class="card">
                             <div class="h-40 bg-gray-200 rounded-t-lg" style="background-image: url('https://placehold.co/600x400/f5d68f/4A5C40?text=Potatoes'); background-size: cover; background-position: center;"></div>
                             <div class="p-4">
                                 <h3 class="font-bold text-lg section-title">Himalayan Potatoes</h3>
                                 <p class="section-intro text-sm">1 kg | ₹35</p>
                                 <button class="w-full btn-primary mt-3 py-2 rounded-lg text-sm add-to-cart" data-product="Potatoes" data-price="35">
-                                    <span>Add to Cart</span>
+                                    Add to Cart
                                 </button>
                             </div>
                         </div>
@@ -612,7 +462,7 @@
                 </div>
                 <div class="lg:col-span-1 card p-6">
                     <h3 class="font-semibold text-lg section-title mb-4">Fair Price Comparison (per kg)</h3>
-                    <p class="section-intro mb-4">This chart visualizes the difference between the average intermediary price and the direct-to-consumer price you can achieve on AgriConnect, highlighting the platform's economic benefits.</p>
+                    <p class="section-intro mb-4">This chart shows the price difference between intermediary and direct-to-consumer sales.</p>
                     <div class="chart-container">
                         <canvas id="priceChart"></canvas>
                     </div>
@@ -623,7 +473,7 @@
         <!-- Community Forum Section -->
         <section id="forum" class="content-section hidden">
             <h1 class="text-3xl font-bold section-title mb-2">Community Q&A Forum</h1>
-            <p class="text-lg section-intro mb-8">Connect with fellow farmers and agricultural experts. Ask questions, share your knowledge, and find solutions to common challenges. This collaborative space fosters a strong, supportive farming community.</p>
+            <p class="text-lg section-intro mb-8">Connect with fellow farmers and agricultural experts.</p>
 
             <div class="space-y-6">
                 <div class="card p-6">
@@ -656,7 +506,7 @@
         <!-- Tech Stack Section -->
         <section id="tech-stack" class="content-section hidden">
             <h1 class="text-3xl font-bold section-title mb-2">Architectural Foundation</h1>
-            <p class="text-lg section-intro mb-8">AgriConnect is built on the robust and scalable MEAN stack. This section visualizes the role of each component—MongoDB, Express.js, Angular, and Node.js—in creating this dynamic, real-time platform as detailed in the source report.</p>
+            <p class="text-lg section-intro mb-8">AgriConnect is built on the robust and scalable MEAN stack.</p>
 
             <div class="card p-8">
                 <div class="relative">
@@ -670,7 +520,7 @@
                             <p class="text-sm section-intro mt-1">Backend Runtime</p>
                         </div>
                         <div class="p-4 bg-[#E9E5E0] rounded-lg">
-                            <h3 class="font-bold text-lg text-[#4A5C40]">Express.js</h3>
+                            <h3 class="font-bold text-lg text-lg text-[#4A5C40]">Express.js</h3>
                             <p class="text-sm section-intro mt-1">Web Framework</p>
                         </div>
                         <div class="p-4 bg-[#E9E5E0] rounded-lg">
@@ -678,13 +528,9 @@
                             <p class="text-sm section-intro mt-1">NoSQL Database</p>
                         </div>
                     </div>
-                    <div class="absolute top-1/2 left-0 w-full h-0.5 bg-gray-300 -translate-y-1/2"></div>
-                    <div class="absolute top-1/2 left-1/4 w-0.5 h-8 bg-gray-300 -translate-y-1/2"></div>
-                    <div class="absolute top-1/2 left-2/4 w-0.5 h-8 bg-gray-300 -translate-y-1/2"></div>
-                    <div class="absolute top-1/2 left-3/4 w-0.5 h-8 bg-gray-300 -translate-y-1/2"></div>
                     <div class="text-center mt-8">
                         <p class="font-semibold text-lg section-title">Unified JavaScript Environment</p>
-                        <p class="section-intro mt-2">This cohesive stack enables real-time capabilities, scalability, and rapid development, making it ideal for a data-intensive platform like AgriConnect.</p>
+                        <p class="section-intro mt-2">This cohesive stack enables real-time capabilities, scalability, and rapid development.</p>
                     </div>
                 </div>
             </div>
@@ -701,7 +547,6 @@
             const mainContent = document.getElementById('mainContent');
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const mobileOverlay = document.getElementById('mobileOverlay');
-            const searchInput = document.getElementById('searchInput');
             const notification = document.getElementById('notification');
             const cartCounter = document.getElementById('cartCounter');
             
@@ -712,7 +557,6 @@
                 contentSections.forEach(section => {
                     if ('#' + section.id === hash) {
                         section.classList.remove('hidden');
-                        section.style.animation = 'fadeIn 0.5s ease-in-out';
                     } else {
                         section.classList.add('hidden');
                     }
@@ -737,6 +581,7 @@
                 }, 3000);
             };
 
+            // Sidebar toggle
             sidebarToggle.addEventListener('click', () => {
                 sidebarCollapsed = !sidebarCollapsed;
                 sidebar.classList.toggle('collapsed');
@@ -744,6 +589,7 @@
                 sidebarToggle.textContent = sidebarCollapsed ? '→' : '←';
             });
 
+            // Mobile menu
             mobileMenuBtn.addEventListener('click', () => {
                 sidebar.classList.add('mobile-open');
                 mobileOverlay.classList.add('show');
@@ -754,36 +600,23 @@
                 mobileOverlay.classList.remove('show');
             });
 
-            searchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                navLinks.forEach(link => {
-                    const text = link.textContent.toLowerCase();
-                    const section = link.getAttribute('data-section');
-                    if (text.includes(searchTerm) || section.includes(searchTerm)) {
-                        link.style.display = 'flex';
-                    } else {
-                        link.style.display = searchTerm ? 'none' : 'flex';
-                    }
-                });
-            });
-
             document.addEventListener('click', (e) => {
-                if (e.target.classList.contains('add-to-cart') || e.target.closest('.add-to-cart')) {
-                    const button = e.target.classList.contains('add-to-cart') ? e.target : e.target.closest('.add-to-cart');
+                if (e.target.classList.contains('add-to-cart')) {
+                    const button = e.target;
                     const product = button.getAttribute('data-product');
                     const price = button.getAttribute('data-price');
                     
                     cartCount++;
                     cartCounter.textContent = cartCount;
-                    cartCounter.style.display = cartCount > 0 ? 'flex' : 'none';
+                    cartCounter.style.display = 'flex';
                     
                     // Add loading state
-                    const originalText = button.innerHTML;
+                    const originalText = button.textContent;
                     button.innerHTML = '<span class="loading-spinner"></span>';
                     button.disabled = true;
                     
                     setTimeout(() => {
-                        button.innerHTML = originalText;
+                        button.textContent = originalText;
                         button.disabled = false;
                         showNotification(`${product} added to cart! ₹${price}`);
                     }, 1000);
@@ -811,7 +644,6 @@
             
             showSection(window.location.hash || '#dashboard');
 
-            // Chart configurations
             Chart.defaults.font.family = "'Inter', sans-serif";
             Chart.defaults.color = '#596455';
 
@@ -836,10 +668,13 @@
             };
 
             function renderCropChart(data) {
-                const ctx = document.getElementById('cropChart').getContext('2d');
+                const ctx = document.getElementById('cropChart');
+                if (!ctx) return;
+                
                 if (cropChart) {
                     cropChart.destroy();
                 }
+                
                 cropChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
@@ -850,16 +685,12 @@
                             backgroundColor: '#6C825D',
                             borderColor: '#4A5C40',
                             borderWidth: 1,
-                            borderRadius: 8,
+                            borderRadius: 4,
                         }]
                     },
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        animation: {
-                            duration: 1000,
-                            easing: 'easeInOutQuart'
-                        },
                         scales: {
                             y: {
                                 beginAtZero: true,
@@ -883,10 +714,13 @@
             }
 
             function renderWeatherChart() {
-                const ctx = document.getElementById('weatherChart').getContext('2d');
+                const ctx = document.getElementById('weatherChart');
+                if (!ctx) return;
+                
                 if (weatherChart) {
                     weatherChart.destroy();
                 }
+                
                 weatherChart = new Chart(ctx, {
                     type: 'line',
                     data: {
@@ -895,14 +729,16 @@
                             label: 'High °C',
                             data: [28, 30, 31, 29, 32, 33, 31],
                             borderColor: '#D97706',
-                            backgroundColor: '#D97706',
-                            tension: 0.3
+                            backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                            tension: 0.3,
+                            fill: false
                         }, {
                             label: 'Low °C',
                             data: [18, 19, 20, 19, 21, 22, 20],
                             borderColor: '#60A5FA',
-                            backgroundColor: '#60A5FA',
-                            tension: 0.3
+                            backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                            tension: 0.3,
+                            fill: false
                         }]
                     },
                     options: {
@@ -913,7 +749,7 @@
                                 beginAtZero: false
                             }
                         },
-                         plugins: {
+                        plugins: {
                             tooltip: {
                                 mode: 'index',
                                 intersect: false,
@@ -924,10 +760,13 @@
             }
 
             function renderPriceChart() {
-                const ctx = document.getElementById('priceChart').getContext('2d');
+                const ctx = document.getElementById('priceChart');
+                if (!ctx) return;
+                
                 if (priceChart) {
                     priceChart.destroy();
                 }
+                
                 priceChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
@@ -936,12 +775,12 @@
                             label: 'Intermediary Price (₹)',
                             data: [25, 42, 22],
                             backgroundColor: '#FBBF24',
-                            borderRadius: 5,
+                            borderRadius: 4,
                         }, {
                             label: 'AgriConnect Price (₹)',
                             data: [40, 50, 35],
                             backgroundColor: '#6C825D',
-                            borderRadius: 5,
+                            borderRadius: 4,
                         }]
                     },
                     options: {
@@ -956,14 +795,7 @@
                             tooltip: {
                                 callbacks: {
                                     label: function(context) {
-                                        let label = context.dataset.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
-                                        if (context.parsed.y !== null) {
-                                            label += `₹${context.parsed.y}`;
-                                        }
-                                        return label;
+                                        return `${context.dataset.label}: ₹${context.raw}`;
                                     }
                                 }
                             }
@@ -972,19 +804,18 @@
                 });
             }
 
-            // Initialize charts
-            renderCropChart(cropData.loamy.tropical);
-            renderWeatherChart();
-            renderPriceChart();
+            document.getElementById('getCropRecs').addEventListener('click', () => {
+                const soil = document.getElementById('soilType').value;
+                const climate = document.getElementById('climate').value;
+                renderCropChart(cropData[soil][climate]);
+                showNotification('Crop recommendations updated!');
+            });
 
-            setInterval(() => {
-                const tempElement = document.querySelector('.metric-value');
-                if (tempElement) {
-                    const currentTemp = parseInt(tempElement.textContent);
-                    const newTemp = currentTemp + (Math.random() - 0.5) * 2;
-                    tempElement.textContent = Math.round(newTemp) + '°C';
-                }
-            }, 5000);
+            setTimeout(() => {
+                renderCropChart(cropData.loamy.tropical);
+                renderWeatherChart();
+                renderPriceChart();
+            }, 100);
         });
     </script>
 </body>
