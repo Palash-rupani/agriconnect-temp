@@ -1,0 +1,23 @@
+{
+  "name": "tempproject",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Palash-rupani/agriconnect-temp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Palash-rupani/agriconnect-temp/issues"
+  },
+  "homepage": "https://github.com/Palash-rupani/agriconnect-temp#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
